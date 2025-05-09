@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.bgImg {
+    position: absolute;
+    left: 10%;
+    top: 10px;
+    width: 80vw;
+    height: 100vh;
+    background-image: url(./156.jpg);
+    opacity: 0.07;
+}
+
+.container {
+    position: relative;
+    width: 80vw;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 3rem;
+    font-family: serif;
+    margin-bottom: 50px;
+}
+
+.enterContainer {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.enterContainer input {
+    font-size: 1.5rem;
+}
+
+.enterContainer input[type=button] {
+    cursor: pointer;
+}
+
+#output {
+    display: none;
+    margin: auto;
+    width: 30%;
+    height: 210px;
+    background-color: #151515;
+    color: #fff;
+    padding: 50px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.imgDiv {
+    background-image: url('https: //flagcdn.com/w320/il.png');
+}
+
+#reload {
+    display: none;
+    width: 300px;
+    height: 50px;
+    background-color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: auto;
+    margin-bottom: 50px;
+}
+
+#reload:hover {
+    box-shadow: #000 3px 3px;
+}
+
+.boxesContainer {
+    width: 90%;
+    height: 200px;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.boxesContainer .box {
+    margin: auto;
+    padding: 25px;
+    width: 250px;
+    height: 180px;
+    text-align: center;
+    font-size: 2rem;
+    background-color: #151515;
+    border: #fff solid 5px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+}
+
+
+.boxesContainer .box h2 {
+    color: blue;
+    font-size: 2.5rem;
+}
+
+#flagsDiv {
+    width: 300px;
+    height: 200px;
+    margin: auto;
+}
+
+@media screen and (max-width: 700px) {
+    .bgImg {
+        width: 90vw;
+        left: 5%;
+    }
+
+    #output {
+        width: 300px;
+    }
+
+    .boxesContainer {
+        flex-direction: column;
+    }
+}
