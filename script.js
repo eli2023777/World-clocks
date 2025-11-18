@@ -1,8 +1,10 @@
 
+const countryInput = document.getElementById('countryInput');
+
 // MODEL
 async function timezoneObjs(countryName) {
     if (!countryName) {
-        countryName = document.getElementById('countryInput').value;
+        countryName = countryInput.value;
     }
 
     const getTimezoneObj = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
@@ -11,6 +13,9 @@ async function timezoneObjs(countryName) {
     }
 
 }
+
+
+
 
 // VIEW
 function updateUI(data, htmlElementName) {
@@ -52,18 +57,23 @@ function updateUI(data, htmlElementName) {
 
             const htmlBox = document.getElementById(htmlElementName)
             if (htmlElementName === 'output') {
-                const countryInput = document.getElementById('countryInput');
-                htmlBox.innerHTML = `${countryInput.value}<br/></br>${htmlContent}`;
-                console.log(htmlElementName);
+                htmlBox.innerHTML = `${capitalizeFirstLetter(countryInput.value)}<br/></br>${htmlContent}`;
             } else {
-                htmlBox.innerHTML = `${htmlElementName}<br/></br>${htmlContent}`;
+                htmlBox.innerHTML = `${capitalizeFirstLetter(htmlElementName)}<br/></br>${htmlContent}`;
             }
+
 
             htmlBox.addEventListener('mouseover', flagsEvent = () => {
                 const flag = timezoneObj.flags.png;
+                const googleMapsLink = timezoneObj.maps.googleMaps;
+
                 const flagsDiv = document.getElementById('flagsDiv');
                 flagsDiv.style.backgroundImage = `url(${flag})`;
-                htmlBox.innerHTML = '';
+                // htmlBox.style.fontSize = '2.5rem';
+
+                const mapDiv = document.getElementById('mapDiv');
+                mapDiv.innerHTML = `<a href=${googleMapsLink} target='_blank' rel='noopener noreferrer'>Open in Google maps</a>`;
+
 
             });
 
@@ -78,18 +88,31 @@ async function main() {
         try {
             updateUI(data, 'output');
             document.getElementById('output').style.display = 'block';
-            document.getElementById('reload').style.display = 'block';
+            document.getElementById('changeCountry').style.display = 'block';
             document.getElementById('enterContainer').style.display = 'none';
         } catch (e) {
-            alert('The country name is incorect. Please try again');
+            if (countryInput.value == '') {
+                alert('The field is empty, please enter your country');
+            } else {
+                alert('The country name is incorect. Please try again');
+            }
             clearInterval(outputSI);
         }
     }, 1000);
+
+    document.getElementById('changeCountry').addEventListener('click', () => {
+        clearInterval(outputSI);
+        document.getElementById('enterContainer').style.display = 'block';
+        document.getElementById('output').style.display = 'none';
+        document.getElementById('changeCountry').style.display = 'none';
+    })
+
 }
 
 document.getElementById('send').addEventListener('click', () => {
     main();
 })
+
 
 
 // Init
@@ -98,9 +121,50 @@ const countriesNames = ['israel', 'thailand', 'germany', 'iceland', 'japan'];
 async function initStaticClocks() {
     for (const countryName of countriesNames) {
         const data = await timezoneObjs(countryName);
-        setInterval(() => { updateUI(data, countryName); }, 1000);
+        setInterval(() => {
+            updateUI(data, countryName);
+        }, 1000);
     }
 }
+
+// Write the countries with a capital letter
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
+
+
+// async function countriesNames() {
+
+
+// }
+
+let countryName;
+
+async function handleCountriesList() {
+    const countriesList = document.getElementById('countriesList');
+
+    const getCountryName = await fetch(`https://restcountries.com/v3.1/all?fields=name`);
+
+    if (getCountryName.ok) {
+        countryName = await getCountryName.json();
+    }
+
+    const names = countryName.map(c => c.name.common);
+    const sortedNames = names.sort();
+
+
+    for (let i = 0; i < sortedNames.length; i++) {
+
+        countriesList.innerHTML += `<option>${sortedNames[i]}</option>`
+
+    }
+
+}
+
+handleCountriesList();
+
 
 initStaticClocks();
 

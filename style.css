@@ -5,26 +5,27 @@
 }
 
 .bgImg {
-    position: absolute;
-    left: 10%;
-    top: 10px;
-    width: 80vw;
-    height: 100vh;
-    background-image: url(./156.jpg);
-    opacity: 0.07;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90vw;
+    height: 100%;
+    background-size: cover;
+    background-image: url(./clocks.jpg);
+    opacity: 0.08;
 }
 
 .container {
     position: relative;
     width: 80vw;
-    margin: 10px auto;
-    padding: 20px;
+    margin: auto;
+    padding: 50px;
 }
 
 h1 {
     text-align: center;
     margin-top: 20px;
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-family: serif;
     margin-bottom: 50px;
 }
@@ -42,26 +43,13 @@ h1 {
     cursor: pointer;
 }
 
-#output {
-    display: none;
-    margin: auto;
-    width: 30%;
-    height: 210px;
-    background-color: #151515;
-    color: #fff;
-    padding: 50px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    font-size: 2rem;
-    text-align: center;
-    cursor: pointer;
-}
 
+/* 
 .imgDiv {
     background-image: url('https: //flagcdn.com/w320/il.png');
-}
+} */
 
-#reload {
+#changeCountry {
     display: none;
     width: 300px;
     height: 50px;
@@ -105,10 +93,37 @@ h1 {
     font-size: 2.5rem;
 }
 
+.flex {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 30px;
+}
+
 #flagsDiv {
     width: 300px;
     height: 200px;
-    margin: auto;
+    z-index: 1000;
+}
+
+#output {
+    display: none;
+    width: 30%;
+    height: 210px;
+    background-color: #151515;
+    color: #fff;
+    padding: 50px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: 2rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+#mapDiv {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
 }
 
 @media screen and (max-width: 700px) {

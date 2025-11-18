@@ -16,14 +16,22 @@
 
         <div class="enterContainer" id="enterContainer">
             <label for="">Enter your country:</label>
-            <input type="text" value="e.g. israel" id="countryInput">
+            <input placeholder="e.g. Israel" list="countriesList" id="countryInput">
+
+            <datalist id="countriesList"></datalist>
+
             <input type="button" value="Send" id="send"><br /><br />
         </div>
 
-        <div id="output"></div>
-        <button id="reload" onclick="location.reload()">Change country</button>
+        <button id="changeCountry">Change country</button>
 
-        <div id="flagsDiv"></div>
+        <div class="flex">
+            <div id="output"></div>
+            <div id="flagsDiv"></div>
+        </div>
+
+        <div id="mapDiv"></div>
+
 
         <div class="boxesContainer">
             <div class="box" id="israel">
