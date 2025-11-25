@@ -3,7 +3,7 @@ const countryInput = document.getElementById('countryInput');
 const flagsDiv = document.getElementById('flagsDiv');
 
 let activBtn;
-
+let countryValue;
 
 
 // MODEL
@@ -14,6 +14,7 @@ async function timezoneObjs(countryName) {
 
     const getTimezoneObj = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
     if (getTimezoneObj.ok) {
+        countryNameUpdated = true;
         return getTimezoneObj.json();
     }
 
@@ -64,7 +65,7 @@ function updateUI(data, htmlElementName) {
 
 
             if (htmlElementName === 'output') {
-                htmlBox.innerHTML = `${capitalizeFirstLetter(countryInput.value)}<br/></br>${htmlContent}`;
+                htmlBox.innerHTML = `${capitalizeFirstLetter(countryValue)}<br/></br>${htmlContent}`;
 
             } else {
                 htmlBox.innerHTML = `${capitalizeFirstLetter(htmlElementName)}<br/></br>${htmlContent}`;
@@ -111,8 +112,10 @@ async function main() {
         }
     }, 1000);
 
+    countryValue = countryInput.value;
     countryInput.placeholder = countryInput.value;
     countryInput.value = '';
+
 
     for (let timezoneObj of data) {
         flagAndMap(timezoneObj);
