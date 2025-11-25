@@ -1,5 +1,10 @@
 
 const countryInput = document.getElementById('countryInput');
+const flagsDiv = document.getElementById('flagsDiv');
+
+let activBtn;
+
+
 
 // MODEL
 async function timezoneObjs(countryName) {
@@ -55,27 +60,33 @@ function updateUI(data, htmlElementName) {
 
             htmlContent += localTimeWithOffset.toLocaleTimeString('en-GB');
 
-            const htmlBox = document.getElementById(htmlElementName)
+            const htmlBox = document.getElementById(htmlElementName);
+
+
             if (htmlElementName === 'output') {
                 htmlBox.innerHTML = `${capitalizeFirstLetter(countryInput.value)}<br/></br>${htmlContent}`;
+
             } else {
                 htmlBox.innerHTML = `${capitalizeFirstLetter(htmlElementName)}<br/></br>${htmlContent}`;
             }
 
 
-            htmlBox.addEventListener('mouseover', flagsEvent = () => {
-                const flag = timezoneObj.flags.png;
-                const googleMapsLink = timezoneObj.maps.googleMaps;
 
-                const flagsDiv = document.getElementById('flagsDiv');
-                flagsDiv.style.backgroundImage = `url(${flag})`;
-                // htmlBox.style.fontSize = '2.5rem';
 
-                const mapDiv = document.getElementById('mapDiv');
-                mapDiv.innerHTML = `<a href=${googleMapsLink} target='_blank' rel='noopener noreferrer'>Open in Google maps</a>`;
+            htmlBox.addEventListener('mouseenter', flagsEvent = () => {
+                flagAndMap(timezoneObj);
+            });
 
+
+            htmlBox.addEventListener('mouseenter', () => {
+                if (activBtn)
+                    activBtn.style.color = 'white';
+
+                htmlBox.style.color = 'yellow';
+                activBtn = htmlBox;
 
             });
+
 
         }
     }
@@ -100,6 +111,13 @@ async function main() {
         }
     }, 1000);
 
+    countryInput.placeholder = countryInput.value;
+    countryInput.value = '';
+
+    for (let timezoneObj of data) {
+        flagAndMap(timezoneObj);
+    }
+
     document.getElementById('changeCountry').addEventListener('click', () => {
         clearInterval(outputSI);
         document.getElementById('enterContainer').style.display = 'block';
@@ -111,7 +129,7 @@ async function main() {
 
 document.getElementById('send').addEventListener('click', () => {
     main();
-})
+});
 
 
 
@@ -133,12 +151,6 @@ function capitalizeFirstLetter(str) {
 }
 
 
-
-
-// async function countriesNames() {
-
-
-// }
 
 let countryName;
 
@@ -162,6 +174,26 @@ async function handleCountriesList() {
     }
 
 }
+
+
+function flagAndMap(timezoneObj) {
+    const flag = timezoneObj?.flags?.png;
+    const googleMapsLink = timezoneObj.maps.googleMaps;
+
+    flagsDiv.style.backgroundImage = `url(${flag})`;
+
+
+    const mapDiv = document.getElementById('mapDiv');
+    mapDiv.innerHTML = `<a href=${googleMapsLink} target='_blank' rel='noopener noreferrer'>Open in Google maps</a>`;
+}
+
+
+
+
+
+
+
+
 
 handleCountriesList();
 

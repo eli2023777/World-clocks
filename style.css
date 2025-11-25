@@ -33,6 +33,7 @@ h1 {
 .enterContainer {
     text-align: center;
     font-size: 2rem;
+    margin-bottom: 10vh;
 }
 
 .enterContainer input {
@@ -104,6 +105,7 @@ h1 {
     width: 300px;
     height: 200px;
     z-index: 1000;
+    background-size: cover;
 }
 
 #output {
